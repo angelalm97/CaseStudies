@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Resilience Case Studies</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+<link
+href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css"
+rel="stylesheet"
+/>
+<link href="style.css" rel="stylesheet" >
+<link href='http://fonts.googleapis.com/css?family=Ubuntu&subset=cyrillic,latin' rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+
+  <div class='sidebar'>
+    <div class='heading'>
+      <h1>Resilience Case Studies</h1>
+    </div>
+    <br>
+
+    <div class ='Intro Text'>
+      <h5> Looking for inspiration? This section shows a few existing resilience case studies gathered from across the globe. Feel free to pan around to discover projects across the globe. </h5>
+    </div>
+
+  </div>
+  <div id="map" class="map"></div>
+
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoiYW5nZWxhLW1vbnRhbCIsImEiOiJja3dhcW9scTUybmpuMzJwODc3MTR1N2FtIn0.jBuR4UnkeJK49FKZqYYEEQ';
+const map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/angela-montal/clg3sw1wl003d01o2x5qn0ev3',
+center: [-87.661557, 41.893748],
+zoom: 1
+});
+
+map.on('click', (event) => {
+const CaseStudies = map.queryRenderedFeatures(event.point, {
+layers: ['Case_Studies']
+});
+if (!CaseStudies.length) {
+return;
+}
+const feature = CaseStudies[0];
+
+const popup = new mapboxgl.Popup({ offset: [0, -15] })
+.setLngLat(feature.geometry.coordinates)
+.setHTML(
+      `<h2>${feature.properties.Name}</h2>
+      <h4>Year Completed</h4><h3>${feature.properties.Completion_Date}</h3>
+      <h4>Lot Size</h4><h3>${feature.properties.Completion_Date}</h3>
+      <h4>Total Cost</h4><h3>${feature.properties.Completion_Date}</h3>
+      <h4>Short Description</h4><h3>${feature.properties.Cost_As_Completion}</h3>
+      <h4>Needs & Challenges</h4><h3>${feature.properties.Needs_Challenges}</h3>
+      <h4>Project Overview</h4><h3>${feature.properties.Project_Overvew}</h3>
+
+
+      <br>
+      `
+)
+
+.addTo(map);
+});
+
+function flyToStore(currentFeature) {
+  map.flyTo({
+    center: currentFeature.geometry.coordinates,
+    zoom: 15
+  });
+}
+
+function createPopUp(currentFeature) {
+  const popUps = document.getElementsByClassName('mapboxgl-popup');
+  /** Check if there is already a popup on the map and if so, remove it */
+  if (popUps[0]) popUps[0].remove();
+
+  const popup = new mapboxgl.Popup({ closeOnClick: true })
+    .setLngLat(currentFeature.geometry.coordinates)
+    .setHTML(`<h3>Sweetgreen</h3><h4>${currentFeature.properties.address}</h4>`)
+    .addTo(map);
+}
+
+
+</script>
+</body>
+</html>
