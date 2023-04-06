@@ -50,11 +50,10 @@ const popup = new mapboxgl.Popup({ offset: [0, -15] })
 .setHTML(
       `<h2>${feature.properties.Name}</h2>
       <h4>Year Completed</h4><h3>${feature.properties.Completion_Date}</h3>
-      <h4>Lot Size</h4><h3>${feature.properties.Completion_Date}</h3>
-      <h4>Total Cost</h4><h3>${feature.properties.Completion_Date}</h3>
-      <h4>Short Description</h4><h3>${feature.properties.Cost_As_Completion}</h3>
-      <h4>Needs & Challenges</h4><h3>${feature.properties.Needs_Challenges}</h3>
-      <h4>Project Overview</h4><h3>${feature.properties.Project_Overvew}</h3>
+      <h4>Lot Size</h4><h3>${feature.properties.Lot_Size_ha}</h3>
+      <h4>Total Cost</h4><h3>${feature.properties.Cost_At_Completion}</h3>
+      <h4>Short Description</h4><h3>${feature.properties.Short_Description}</h3>
+      <h4>Project Overview</h4><h3>${feature.properties.Project_Overview}</h3>
 
 
       <br>
